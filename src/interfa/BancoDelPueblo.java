@@ -50,40 +50,81 @@ public class BancoDelPueblo extends javax.swing.JFrame {
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, -1, -1));
 
         jLabel2.setText("Monto de Prestamo");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, -1));
         jPanel1.add(txtP, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, 130, -1));
 
         jLabel3.setText("Cuotas Especiales");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, -1, -1));
 
         lblCE.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCE.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.add(lblCE, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 140, 30));
 
         jLabel5.setText("Cuotas ordinarias");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 260, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, -1, -1));
 
         lblCO.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCO.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.add(lblCO, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 280, 140, 30));
+        jPanel1.add(lblCO, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 270, 140, 30));
 
         jLabel7.setText("Pago Total del Prestamo");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, -1, -1));
 
         lblPP.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPP.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.add(lblPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 370, 140, 30));
+        jPanel1.add(lblPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 360, 140, 30));
 
         cmdCalcular.setText("Calcular");
+        cmdCalcular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdCalcularActionPerformed(evt);
+            }
+        });
         jPanel1.add(cmdCalcular, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 450, -1, -1));
 
         cmdRestaurar.setText("Restaurar");
+        cmdRestaurar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdRestaurarActionPerformed(evt);
+            }
+        });
         jPanel1.add(cmdRestaurar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 450, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 480));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cmdCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCalcularActionPerformed
+
+        String r, r1, r2;
+        double t, co, ce, p;
+        
+        p = Double.parseDouble(txtP.getText());
+        
+        t = p * 1.24;
+        
+        co = (t/2)/20;
+        ce = (t/2)/4;
+        
+        r = String.valueOf(t);
+        r1 = String.valueOf(co);
+        r2 = String.valueOf(ce);
+        
+        lblCO.setText(r1);
+        lblPP.setText(r);
+        lblCE.setText(r2);
+        
+    }//GEN-LAST:event_cmdCalcularActionPerformed
+
+    private void cmdRestaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdRestaurarActionPerformed
+       
+        txtP.setText("");
+        lblCO.setText("");
+        lblPP.setText("");
+        lblCE.setText("");
+        txtP.requestFocusInWindow();
+    }//GEN-LAST:event_cmdRestaurarActionPerformed
 
     /**
      * @param args the command line arguments
