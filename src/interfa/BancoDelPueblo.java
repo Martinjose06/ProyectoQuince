@@ -5,6 +5,9 @@
  */
 package interfa;
 
+import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author LUCYLEONOR
@@ -49,26 +52,43 @@ public class BancoDelPueblo extends javax.swing.JFrame {
         jLabel1.setText("Banco Del Pueblo");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, -1, -1));
 
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 102, 255));
         jLabel2.setText("Monto de Prestamo");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
+
+        txtP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPKeyTyped(evt);
+            }
+        });
         jPanel1.add(txtP, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, 130, -1));
 
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 102, 255));
         jLabel3.setText("Cuotas Especiales");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, -1, -1));
 
         lblCE.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCE.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.add(lblCE, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 140, 30));
 
+        jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 102, 255));
         jLabel5.setText("Cuotas ordinarias");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, -1, -1));
 
         lblCO.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCO.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.add(lblCO, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 270, 140, 30));
 
+        jLabel7.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 102, 255));
         jLabel7.setText("Pago Total del Prestamo");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, -1, -1));
 
         lblPP.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPP.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -97,34 +117,85 @@ public class BancoDelPueblo extends javax.swing.JFrame {
 
     private void cmdCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCalcularActionPerformed
 
-        String r, r1, r2;
-        double t, co, ce, p;
-        
-        p = Double.parseDouble(txtP.getText());
-        
-        t = p * 1.24;
-        
-        co = (t/2)/20;
-        ce = (t/2)/4;
-        
-        r = String.valueOf(t);
-        r1 = String.valueOf(co);
-        r2 = String.valueOf(ce);
-        
-        lblCO.setText(r1);
-        lblPP.setText(r);
-        lblCE.setText(r2);
-        
+        if (txtP.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No Ingresó El Prestamo", "ERROR", JOptionPane.ERROR_MESSAGE);
+            txtP.requestFocusInWindow();
+        } else if (txtP.getText().equalsIgnoreCase("0")) {
+            JOptionPane.showMessageDialog(this, "El Prestamo Debe Ser Superior A 0", "ERROR", JOptionPane.ERROR_MESSAGE);
+            txtP.requestFocusInWindow();
+            txtP.selectAll();
+
+        } else {
+            String r, r1, r2;
+            double t, co, ce, p;
+
+            p = Double.parseDouble(txtP.getText());
+
+            t = p * 1.24;
+
+            co = (t / 2) / 20;
+            ce = (t / 2) / 4;
+
+            r = String.valueOf(t);
+            r1 = String.valueOf(co);
+            r2 = String.valueOf(ce);
+
+            lblCO.setText("$ " + r1);
+            lblPP.setText("$ " + r);
+            lblCE.setText("$ " + r2);
+        }
     }//GEN-LAST:event_cmdCalcularActionPerformed
 
     private void cmdRestaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdRestaurarActionPerformed
-       
+
         txtP.setText("");
         lblCO.setText("");
         lblPP.setText("");
         lblCE.setText("");
         txtP.requestFocusInWindow();
     }//GEN-LAST:event_cmdRestaurarActionPerformed
+
+    private void txtPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPKeyTyped
+        char c = evt.getKeyChar();
+
+        if (!Character.isDigit(c)) {
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtPKeyTyped
+
+    private void txtPKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPKeyPressed
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (txtP.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No Ingresó El Prestamo", "ERROR", JOptionPane.ERROR_MESSAGE);
+                txtP.requestFocusInWindow();
+            } else if (txtP.getText().equalsIgnoreCase("0")) {
+                JOptionPane.showMessageDialog(this, "El Prestamo Debe Ser Superior A 0", "ERROR", JOptionPane.ERROR_MESSAGE);
+                txtP.requestFocusInWindow();
+                txtP.selectAll();
+
+            } else {
+                String r, r1, r2;
+                double t, co, ce, p;
+
+                p = Double.parseDouble(txtP.getText());
+
+                t = p * 1.24;
+
+                co = (t / 2) / 20;
+                ce = (t / 2) / 4;
+
+                r = String.valueOf(t);
+                r1 = String.valueOf(co);
+                r2 = String.valueOf(ce);
+
+                lblCO.setText("$ " + r1);
+                lblPP.setText("$ " + r);
+                lblCE.setText("$ " + r2);
+            }
+        }
+    }//GEN-LAST:event_txtPKeyPressed
 
     /**
      * @param args the command line arguments
